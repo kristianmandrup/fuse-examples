@@ -1,0 +1,10 @@
+{
+  "Packages": [
+    "Fuse",
+    "FuseJS",
+    "Fuse.Physics"
+  ],
+  "Includes": [
+    "MainView.ux:UXFile"
+  ]
+}

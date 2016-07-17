@@ -1,0 +1,26 @@
+<RangeControl ux:Class="MySlider" Focus.IsFocusable="true" MinHeight="30"
+		Padding="5" Margin="18,4" HitTestMode="LocalBounds" ux:Name="mySlider">
+	<LinearRangeBehavior/>
+	<StackLayout/>
+	<JavaScript>
+		var Observable = require("FuseJS/Observable");
+		var sliderValue = Observable(0);
+		module.exports = { sliderValue: sliderValue };
+	</JavaScript>
+	<DataBinding Target="mySlider.Value" Key="sliderValue"/>
+
+	<Panel Alignment="Top" Margin="6,10,0,0">
+		<Number ux:Name="currentValue" Value="{sliderValue}" Alignment="Right" Format="{D:2}" Opacity="0.7"/>
+		<Panel ux:Name="thumb" Anchor="50%,50%" Alignment="Left" Width="15" Height="15" HitTestMode="LocalBounds">
+			<Rectangle Fill="{Resource color}" />
+		</Panel>
+		<Panel Layer="Background">
+			<Rectangle Height="6" Fill="{Resource color}" Opacity="0.3" />
+			<Rectangle Height="6" Fill="#fff" />
+		</Panel>
+	</Panel>
+	<Text Value="{Resource text}" Alignment="BottomLeft" Margin="6,0,0,0"/>
+	<ProgressAnimation>
+		<Move Target="thumb" X="1" RelativeTo="ParentSize" />
+	</ProgressAnimation>
+</RangeControl>

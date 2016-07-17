@@ -1,0 +1,7 @@
+<Panel>
+	<IconButton ux:Class="LikeButton" Text="LIKE" Icon="Assets/Like.png" />
+	<IconButton ux:Class="ShareButton" Text="SHARE" Icon="Assets/Share.png" />
+	<IconButton ux:Class="AddButton" Text="ADD TO" Icon="Assets/Add.png" />
+	<IconButton ux:Class="ReportButton" Text="REPORT" Icon="Assets/Rules.png" />
+	<Image ux:Class="Cross" File="Assets/Cross.png" Width="15" Height="15" Alignment="TopLeft" Margin="15" />
+</Panel>

@@ -1,0 +1,15 @@
+{
+  "RootNamespace": "",
+  "Packages": [
+    "Fuse",
+    "FuseJS"
+  ],
+  "Includes": [
+    "FlatButton.ux:UXFile",
+    "IconButton.ux:UXFile",
+    "MainView.ux:UXFile",
+    "Resources.ux:UXFile",
+    "SocialCard.ux:UXFile",
+    "TableDot.ux:UXFile"
+  ]
+}

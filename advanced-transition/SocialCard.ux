@@ -1,0 +1,14 @@
+<Panel ux:Class="SocialCard" Background="White">
+	<Cross />
+	<Grid RowCount="2" ColumnCount="2" Margin="10">
+		<LikeButton />
+		<ShareButton />
+		<AddButton />
+		<ReportButton />
+	</Grid>
+
+	<EnteringAnimation>
+		<Move X="1" RelativeTo="Size" Duration="0.5" />
+	</EnteringAnimation>
+	<DropShadow Distance="25" Angle="50" Size="30" />
+</Panel>

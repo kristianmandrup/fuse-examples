@@ -1,0 +1,24 @@
+<Panel ux:Class="FlatButton" ux:Name="self" Width="110" Height="35" Background="#0000" TextColor="#fff">
+
+	<string ux:Property="Text" />
+	<float4 ux:Property="Background" />
+	<float4 ux:Property="StrokeColor" />
+	<float4 ux:Property="TextColor" />
+
+	<Rectangle Layer="Background">
+		<SolidColor ux:Name="bgColor" Color="{Property self.Background}" />
+		<Stroke Width="2">
+			<SolidColor Color="{Property self.StrokeColor}" />
+		</Stroke>
+	</Rectangle>
+
+	<Text Value="{Property self.Text}" Alignment="Center" TextColor="{Property self.TextColor}" />
+	<ExitingAnimation>
+		<Move Y="3" RelativeTo="Size" Duration="0.5" />
+	</ExitingAnimation>
+
+	<Rectangle ux:Name="overlayRect" Layer="Overlay" Fill="#fff5" Opacity="0"/>
+	<Clicked>
+		<Change overlayRect.Opacity="1" Duration="0.1"/>
+	</Clicked>
+</Panel>

@@ -1,0 +1,102 @@
+<App>
+	<DockPanel>
+		<Fuse.iOS.StatusBarConfig Style="Light"/>
+
+		<Panel ux:Class="FadeInPanel" ux:Name="fadeInPanel">
+			<AddingAnimation>
+				<Change fadeInPanel.Opacity="0" Duration="0.5"/>
+			</AddingAnimation>
+		</Panel>
+
+		<JavaScript File="MainView.js"/>
+
+		<Grid Rows="6*,4*">
+			<Panel Dock="Bottom" Row="1">
+				<Panel Alignment="Top">
+					<WhileEmpty Items="{picture}">
+						<Text Value="Go on, take a picture!" Offset="0,-80" Alignment="TopCenter" TextColor="#fff"/>
+					</WhileEmpty>
+					<Panel Offset="0,-32.5" Width="65" Height="65">
+						<Clicked>
+							<Scale Factor="0.9" Duration="0.07" />
+							<Change cameraButtonColor.Color="#FF5788" Duration="0.07"/>
+							<Callback Handler="{takePicture}" Delay="0.15" />
+						</Clicked>
+						<Image File="Icons/shape.png" Margin="18"/>
+						<Circle Layer="Background">
+							<SolidColor ux:Name="cameraButtonColor" Color="#FC3768" />
+							<DropShadow />
+						</Circle>
+					</Panel>
+				</Panel>
+
+				<WhileCount Items="{picture}" EqualTo="1">
+					<Grid RowCount="3" Margin="0,30,0,10">
+						<FadeInPanel>
+							<MySlider ux:Name="intensity" Value="0.5">
+								<SolidColor ux:Key="color" Color="#50D2C2" />
+								<string ux:Value="Intensity" ux:Key="text"/>
+								<ProgressAnimation>
+									<Change halftone.Intensity="2" />
+								</ProgressAnimation>
+							</MySlider>
+							<Rectangle Height="1" Fill="#eee" Alignment="Bottom"/>
+						</FadeInPanel>
+						<FadeInPanel>
+							<MySlider ux:Name="smoothness" Value="0.5">
+								<SolidColor ux:Key="color" Color="#FCAB53" />
+								<string ux:Value="Smoothness" ux:Key="text"/>
+								<ProgressAnimation>
+									<Change halftone.Smoothness="10" />
+								</ProgressAnimation>
+							</MySlider>
+							<Rectangle Height="1" Fill="#eee" Alignment="Bottom"/>
+						</FadeInPanel>
+						<FadeInPanel>
+							<MySlider ux:Name="spacing" Value="0.5">
+								<SolidColor ux:Key="color" Color="#BA77FD" />
+								<string ux:Value="Spacing" ux:Key="text"/>
+								<ProgressAnimation>
+									<Change halftone.Spacing="10" />
+								</ProgressAnimation>
+							</MySlider>
+						</FadeInPanel>
+					</Grid>
+				</WhileCount>
+				<WhileEmpty Items="{picture}">
+					<Panel Alignment="Center">
+						<Text Alignment="Center" Value="Afterwards, you can apply a cool half-tone filter to it." Margin="40,20" TextWrapping="Wrap"
+							  TextAlignment="Center" Width="250"/>
+					</Panel>
+				</WhileEmpty>
+			</Panel>
+
+
+			<Panel Height="100%" Alignment="Top" Row="0">
+				<StatusBarBackground Dock="Top" />
+				<WhileCount Items="{picture}" EqualTo="1">
+					<Image ux:Name="picture" File="Icons/background.png" StretchMode="UniformToFill" >
+						<DataBinding Key="picture" Target="picture.File" />
+						<Halftone ux:Name="halftone" Intensity="0" Smoothness="0" Spacing="1" PaperTint="0" DotTint="0"/>
+						<AddingAnimation>
+							<Change picture.Opacity="0" Duration="0.5" />
+						</AddingAnimation>
+					</Image>
+				</WhileCount>
+				<WhileEmpty Items="{picture}">
+					<Image ux:Name="backgroundImage" File="Icons/background.png" StretchMode="UniformToFill">
+						<RemovingAnimation>
+							<Change backgroundImage.Opacity="0" Duration="0.5"/>
+						</RemovingAnimation>
+					</Image>
+				</WhileEmpty>
+
+			</Panel>
+
+		</Grid>
+
+		<BottomBarBackground Dock="Bottom"/>
+	</DockPanel>
+
+
+</App>

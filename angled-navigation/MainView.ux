@@ -1,0 +1,138 @@
+<App>
+	<ClientPanel Color="#C4708C">
+
+		<FileImageSource File="Assets/food1.jpg" ux:Key="food1"/>
+		<FileImageSource File="Assets/food2.jpg" ux:Key="food2"/>
+		<FileImageSource File="Assets/food3.jpg" ux:Key="food3"/>
+		<FileImageSource File="Assets/food4.jpg" ux:Key="food4"/>
+		<FileImageSource File="Assets/food5.jpg" ux:Key="food5"/>
+		<FileImageSource File="Assets/food6.jpg" ux:Key="food6"/>
+		<FileImageSource File="Assets/food7.jpg" ux:Key="food7"/>
+
+		<Font File="Fonts/Lora-Regular.ttf" ux:Global="Lora" />
+		<Font File="Fonts/Lora-Bold.ttf" ux:Global="LoraBold" />
+
+		<LinearGradient StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Offset="0" Color="#C4708C" />
+			<GradientStop Offset="0.7" Color="#C4708C" />
+			<GradientStop Offset="0.75" Color="#fff" />
+            <GradientStop Offset="1" Color="#fff" />
+        </LinearGradient>
+
+		<Fuse.iOS.StatusBarConfig Style="Light" />
+		<Panel>
+			<Grid Columns="1*,2*,1*" Height="80" Alignment="Top" Color="#C4708C">
+				<Image File="Icons/menu.png" Margin="25,10" Width="30" Alignment="Left"/>
+				<Image File="Assets/foodstore.png" Margin="10,15" />
+				<Image File="Icons/cart.png" Margin="25,10" Width="30" Alignment="Right"/>
+			</Grid>
+			<ScrollView>
+				<StackPanel>
+					<Panel Height="1000">
+						<Panel Offset="0,-250">
+							<Panel ux:Class="Card" Width="150" Height="150" Opacity="0.4" ux:Name="self">
+								<ActivatingAnimation>
+									<Change self.Opacity="1" Duration="1"  />
+								</ActivatingAnimation>
+								<EnteringAnimation Scale="0.25">
+									<Move RelativeTo="Size">
+										<Keyframe Time="0.25" X="-0.7" Y="0.7"/>
+										<Keyframe Time="0.5"  X="-1.4"  Y="0"/>
+										<Keyframe Time="0.75" X="-2.1" Y="-0.7"/>
+										<Keyframe Time="1"    X="-3.8"  Y="-1.4"/>
+									</Move>
+								</EnteringAnimation>
+								<ExitingAnimation Scale="0.25">
+									<Move RelativeTo="Size">
+										<Keyframe Time="0.25" X="0.7" Y="0.7"/>
+										<Keyframe Time="0.5"  X="1.4"  Y="0"/>
+										<Keyframe Time="0.75" X="2.1" Y="-0.7"/>
+										<Keyframe Time="1"    X="3.8"  Y="-1.4"/>
+									</Move>
+								</ExitingAnimation>
+
+								<float4 ux:Property="PanelColor" />
+
+								<Image Source="{DataToResource image}" Width="55%"/>
+								<Panel Color="{Property self.PanelColor}" Margin="14" ClipToBounds="True">
+									<Rotation Degrees="45" />
+								</Panel>
+							</Panel>
+
+							<JavaScript File="MainView.js"/>
+
+							<Panel HitTestMode="LocalBoundsAndChildren" MaxHeight="1000000" >
+								<LinearNavigation ux:Name="nav">
+									<NavigationMotion GotoEasing="CircularOut" />
+								</LinearNavigation>
+								<SwipeNavigate SwipeDirection="Left"/>
+								<Each Items="{items}">
+									<Panel ux:Name="self">
+										<Card PanelColor="#fff" Offset="0,-60">
+											<Clicked>
+												<NavigateTo Target="self" />
+											</Clicked>
+										</Card>
+										<StackPanel>
+											<Panel Height="620" />
+											<Panel ux:Name="textPanel" Opacity="0">
+												<StackPanel Width="300">
+													<Text Font="Lora" TextAlignment="Center" Value="{category}" FontSize="12"/>
+													<Text Font="Lora" TextAlignment="Center" Value="{name}" FontSize="25" TextWrapping="Wrap" Margin="50,5,50,0"/>
+													<Rectangle Fill="##C4708C" Height="4" Width="50" Margin="0,10"/>
+													<Text Font="Lora" TextAlignment="Left" Value="{text}" TextWrapping="Wrap" Margin="10,20"
+														  FontSize="14" TextColor="#888" LineSpacing="3"/>
+												</StackPanel>
+												<ActivatingAnimation>
+													<Change textPanel.Opacity="1" Duration="0.5"/>
+												</ActivatingAnimation>
+												<EnteringAnimation Scale="1.2">
+													<Move RelativeTo="Size" Y="1" X="-1" Duration="0.5"/>
+												</EnteringAnimation>
+												<ExitingAnimation Scale="1.2">
+													<Move RelativeTo="Size" Y="1" X="1" Duration="0.5"/>
+												</ExitingAnimation>
+											</Panel>
+										</StackPanel>
+									</Panel>
+								</Each>
+							</Panel>
+
+							<Panel>
+								<Panel Alignment="Center" Width="0" Height="0" Offset="0,255">
+									<Grid Columns="150,150,150,150,150,150" Rows="150,150,150,150,150,150" Alignment="Center" TransformOrigin="TopLeft">
+										<Rotation Degrees="45" />
+
+										<Panel Color="#fff" Column="2" Row="2" ColumnSpan="3" RowSpan="3">
+										</Panel>
+
+										<Rectangle Row="1" Column="3" Color="#000" Margin="-2" HitTestMode="LocalBoundsAndChildren">
+											<Image File="Icons/arrow.png" Width="30" Height="30" Alignment="BottomLeft" Margin="12">
+												<Rotation Degrees="-45"/>
+											</Image>
+
+										</Rectangle>
+										<Rectangle Row="3" Column="1" Color="#000" Margin="-2">
+											<Image File="Icons/arrow.png" Width="30" Height="30" Alignment="TopRight" Margin="12">
+												<Rotation Degrees="135"/>
+											</Image>
+										</Rectangle>
+
+										<Rectangle Row="1" Column="1" ColumnSpan="2" RowSpan="2" Width="300" Height="300">
+											<Stroke Width="2" Brush="#fff9" />
+										</Rectangle>
+
+
+										<Rectangle Row="0" Column="2" RowSpan="2" Color="#fff6"/>
+										<Rectangle Row="2" Column="0" ColumnSpan="2" Color="#fff6"/>
+									</Grid>
+								</Panel>
+							</Panel>
+						</Panel>
+						<Rectangle Height="40%" Alignment="Bottom" Color="#fff" />
+					</Panel>
+				</StackPanel>
+			</ScrollView>
+		</Panel>
+	</ClientPanel>
+</App>

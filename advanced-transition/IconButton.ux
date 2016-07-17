@@ -1,0 +1,6 @@
+<DockPanel ux:Class="IconButton" ux:Name="self" Alignment="Center">
+	<Uno.UX.FileSource ux:Property="Icon" />
+	<string ux:Property="Text" />
+	<Image File="{Property self.Icon}" Dock="Top" Width="34" Height="34" />
+	<Text Value="{Property self.Text}" TextColor="#888" Alignment="Center" Margin="0,8,0,0" />
+</DockPanel>

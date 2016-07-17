@@ -1,0 +1,13 @@
+{
+  "RootNamespace": "",
+  "Packages": [
+    "Fuse",
+    "Fuse.Camera",
+    "FuseJS"
+  ],
+  "Includes": [
+    "MainView.js:File",
+    "MainView.ux:UXFile",
+    "MySlider.ux:UXFile"
+  ]
+}

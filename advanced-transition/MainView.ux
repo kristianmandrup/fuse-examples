@@ -1,0 +1,176 @@
+<App>
+	<DockPanel>
+		<Fuse.iOS.StatusBarConfig Style="Light" />
+		<UserEvent Name="ShowTables" />
+		<UserEvent Name="HideTables" />
+
+		<ux:Include File="Resources.ux" />
+
+		<Panel>
+			<Panel HitTestMode="None" Opacity="0.0">
+				<Image File="Assets/OverlayForTesting.png" />
+			</Panel>
+
+			<Text ux:Class="Header" TextColor="#fff" TextAlignment="Left">
+				<LayoutAnimation>
+					<Move RelativeTo="PositionChange" X="1" Y="1" Duration="1" Easing="ExponentialInOut" />
+				</LayoutAnimation>
+			</Text>
+
+			<DockPanel>
+				<TopFrameBackground Dock="Top"/>
+				<Panel HitTestMode="None" Navigation="nav" Dock="Top" Height="60">
+					<Image ux:Name="t1" LayoutMaster="layoutControl11" File="Assets/octopusbar.png" Height="55">
+						<LayoutAnimation>
+							<Move RelativeTo="PositionChange" X="1" Y="1" Duration="1" Easing="ExponentialInOut" />
+						</LayoutAnimation>
+					</Image>
+					<Header ux:Name="t2"  LayoutMaster="layoutControl12" Value="567 Hudson St" FontSize="14" />
+					<Header ux:Name="t3"  LayoutMaster="layoutControl13" Value="Fresh fruit and fish" FontSize="24" />
+				</Panel>
+				<WhileTrue ux:Name="changeLayoutMaster">
+					<Change t1.LayoutMaster="layoutControl21" />
+					<Change t2.LayoutMaster="layoutControl22" />
+					<Change t3.LayoutMaster="layoutControl23" />
+					<Change t4.LayoutMaster="layoutControl24" />
+					<Change t1.Alignment="Center" />
+					<Change t2.Alignment="Center" />
+					<Change t3.Alignment="Center" />
+					<Change t4.Alignment="Center" />
+				</WhileTrue>
+
+				<Grid ux:Name="tables" ColumnCount="3" RowCount="3" Width="300" Height="300">
+					<JavaScript>
+						var Observable = require("FuseJS/Observable");
+						var items = Observable();
+						for (var i = 0; i < 9; i++)
+							items.add({ number:i, delay: 0.15 * (i*0.05 % 3) * i });
+						module.exports = { items: items };
+					</JavaScript>
+					<Each Items="{items}">
+						<TableDot />
+					</Each>
+					<RemovingAnimation>
+
+						<Change tables.Opacity="0" Duration="0.5 " />
+					</RemovingAnimation>
+				</Grid>
+			</DockPanel>
+
+			<Panel Background="#111">
+				<Panel ux:Name="background" Layer="Background" Width="75%" Alignment="Left" Margin="-10">
+					<Image File="Assets/Background.jpg" StretchMode="UniformToFill" ux:Name="bgImage"/>
+				</Panel>
+				<WhileTrue ux:Name="inBookPage">
+					<Change background.Width="100" Duration="0.9" Delay="0.2" Easing="ExponentialInOut" />
+					<Scale Target="background" Factor="1.3" Duration="0.9" Delay="0.2" Easing="ExponentialInOut" />
+				</WhileTrue>
+
+				<LinearNavigation ux:Name="nav">
+					<NavigationMotion GotoEasing="SinusoidalInOut" GotoDuration="0.5"/>
+				</LinearNavigation>
+				<Grid ux:Name="menuLayout" ColumnCount="2">
+					<Panel>
+						<StackPanel Alignment="Bottom">
+							<Panel>
+								<Text Value="Ratings:" TextColor="#fff" FontSize="58.79" Alignment="Left" Margin="60,0,0,4" />
+								<Rectangle Height="1" Width="90%" Fill="#ddd" Alignment="Bottom" />
+								<EnteringAnimation>
+									<Move X="-1.3" RelativeTo="Size" Duration="0.5" />
+								</EnteringAnimation>
+							</Panel>
+							<Grid Columns="auto,1*" Margin="65,5,40,54">
+								<EnteringAnimation>
+									<Move X="-1.3" RelativeTo="Size" Duration="0.5" Delay="0.1" />
+								</EnteringAnimation>
+								<Circle Width="45" Height="45" Margin="0,0,10,0">
+									<ImageFill File="Assets/Face.png" />
+								</Circle>
+								<StackPanel>
+									<StackPanel Orientation="Horizontal">
+										<Text Value="Oliver Newton" FontSize="15" TextColor="#fff" Margin="0,0,10,0"/>
+										<StackPanel Orientation="Horizontal">
+											<Each Count="5">
+												<Image File="Assets/StarFilled.png" Width="13" Height="13" Margin="2" />
+											</Each>
+										</StackPanel>
+									</StackPanel>
+									<Text Value="It's an unforgettable venue for those who like not only to eat out, but also enjoy the unique atmosphere and saver delicious refreshments. Fish and fruit are super-fresh and taste awesome!" TextColor="#fff" TextWrapping="Wrap" FontSize="10" />
+								</StackPanel>
+							</Grid>
+						</StackPanel>
+					</Panel>
+					<Panel>
+						<StackPanel Margin="20" Width="350" Alignment="Left">
+							<Panel ux:Name="layoutControl11" Height="55" Alignment="Left" Width="100%"/>
+							<Panel ux:Name="layoutControl12" Height="20" Alignment="Left" Width="100%"/>
+							<Panel ux:Name="layoutControl13" Height="30" Alignment="Left" Width="100%"/>
+							<Panel ux:Name="layoutControl14" Height="30" Alignment="Left" Width="100%"/>
+						</StackPanel>
+
+						<Grid Columns="2*,3.1*" Height="45%">
+							<FlatButton ux:Name="bookButton" Background="#FF8" Offset="0,8" Text="Book" TextColor="#333">
+								<EnteringAnimation>
+									<Change bookButton.Opacity="0" Duration="0.1" />
+									<Nothing Duration="1" />
+								</EnteringAnimation>
+								<WhileActive>
+									<Clicked>
+										<RaiseUserEvent EventName="ShowTables" />
+										<Set nav.Active="bookPage" />
+										<Set changeLayoutMaster.Value="true" />
+										<Set inBookPage.Value="true" />
+									</Clicked>
+								</WhileActive>
+							</FlatButton>
+							<SocialCard />
+						</Grid>
+						<Panel>
+							<ImageFill File="Assets/ContentBackground.png" StretchMode="UniformToFill" />
+							<EnteringAnimation>
+								<Move Y="1" RelativeTo="Size" Duration="0.3" />
+							</EnteringAnimation>
+						</Panel>
+						<Panel Alignment="Center">
+							<Header ux:Name="t4" Value="Choose a table:" FontSize="30" TextColor="#fff" Width="250" TextAlignment="Center"
+									LayoutMaster="layoutControl14" LayoutMasterMode="ParentTransform"/>
+						</Panel>
+						<Panel Background="#fffd">
+							<EnteringAnimation>
+								<Move Y="1" RelativeTo="Size" Duration="0.5" Delay="0.5" />
+							</EnteringAnimation>
+						</Panel>
+					</Panel>
+				</Grid>
+				<Panel ux:Name="bookPage">
+					<ActivatingAnimation>
+						<Change bgImage.Color="#888" Duration="0.7" Delay="0.2"/>
+					</ActivatingAnimation>
+					<Grid ColumnCount="2" Width="280" Alignment="Bottom" Margin="30">
+						<FlatButton ux:Name="cancelButton" Background="#F66" Text="CANCEL">
+							<Clicked>
+								<Set nav.Active="menuLayout" />
+								<Set changeLayoutMaster.Value="false" />
+								<Set inBookPage.Value="false" />
+								<RaiseUserEvent EventName="HideTables" />
+							</Clicked>
+						</FlatButton>
+						<FlatButton ux:Name="continueButton" StrokeColor="#aaa" Text="CONTINUE" TextColor="#ddd">
+							<ExitingAnimation>
+								<Move Y="1" RelativeTo="Size" Duration="0.5" />
+							</ExitingAnimation>
+						</FlatButton>
+					</Grid>
+
+					<StackPanel Alignment="HorizontalCenter" Margin="0,20,0,0" Width="350">
+						<Panel ux:Name="layoutControl21" Width="100%" Alignment="Center" Height="55"/>
+						<Panel ux:Name="layoutControl22" Width="100%" Alignment="Center" Height="20"/>
+						<Panel ux:Name="layoutControl23" Width="100%" Alignment="Center" Height="30"/>
+						<Panel ux:Name="layoutControl24" Width="100%" Alignment="Center" Height="30"/>
+					</StackPanel>
+				</Panel>
+			</Panel>
+		</Panel>
+		<BottomFrameBackground Dock="Bottom"/>
+	</DockPanel>
+</App>

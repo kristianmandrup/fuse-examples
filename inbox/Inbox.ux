@@ -1,0 +1,135 @@
+<App Background="#fff">
+	<DockPanel>
+		<JavaScript>
+			var Observable = require("FuseJS/Observable");
+
+			function Message(icon, sender, subject, summary) {
+				this.sender = sender;
+				this.subject = subject;
+				this.icon = icon;
+				this.summary = summary;
+			}
+
+			var messages = Observable(
+				new Message("contact2", "santa@claus.northpole", "Rumours have it you've been bad", "I heard you went to school without doing your homework."),
+				new Message("contact3", "gina@hotmail.com", "Running late for dinner", "Sorry, babes, I am running a little late tonight, can you just start without me?"),
+				new Message("contact4", "john@wayne.no", "Hello, pardaner", "I just got shot up bad at the Wounded Knee. I took a bullet to the knee."),
+				new Message("contact1", "compulsive@liar.net", "EVERYWHERE!", "I'm telling you, there were penguins everywhere. As far as the eye could see."),
+				new Message("contact2", "santa@claus.northpole", "Rumours have it you've been bad", "I heard you went to school without doing your homework."),
+				new Message("contact3", "gina@hotmail.com", "Running late for dinner", "Sorry, babes, I am running a little late tonight, can you just start without me?"),
+				new Message("contact4", "john@wayne.no", "Hello, pardaner", "I just got shot up bad at the Wounded Knee. I took a bullet to the knee."),
+				new Message("contact1", "compulsive@liar.net", "EVERYWHERE!", "I'm telling you, there were penguins everywhere. As far as the eye could see."),
+				new Message("contact2", "santa@claus.northpole", "Rumours have it you've been bad", "I heard you went to school without doing your homework."),
+				new Message("contact3", "gina@hotmail.com", "Running late for dinner", "Sorry, babes, I am running a little late tonight, can you just start without me?"),
+				new Message("contact4", "john@wayne.no", "Hello, pardaner", "I just got shot up bad at the Wounded Knee. I took a bullet to the knee."),
+				new Message("contact1", "compulsive@liar.net", "EVERYWHERE!", "I'm telling you, there were penguins everywhere. As far as the eye could see."),
+				new Message("contact2", "santa@claus.northpole", "Rumours have it you've been bad", "I heard you went to school without doing your homework."),
+				new Message("contact3", "gina@hotmail.com", "Running late for dinner", "Sorry, babes, I am running a little late tonight, can you just start without me?"),
+				new Message("contact4", "john@wayne.no", "Hello, pardaner", "I just got shot up bad at the Wounded Knee. I took a bullet to the knee."),
+				new Message("contact1", "compulsive@liar.net", "EVERYWHERE!", "I'm telling you, there were penguins everywhere. As far as the eye could see.")
+			);
+
+			function removeItem(sender) {
+				messages.remove(sender.data);
+			}
+
+			function postponeItem(sender) {
+				messages.remove(sender.data);
+				messages.add(sender.data);
+			}
+
+			module.exports = {
+				messages: messages,
+				removeItem: removeItem,
+				postponeItem: postponeItem
+			};
+		</JavaScript>
+		<Font File="Assets/Fonts/RobotoCondensed-Bold.ttf" ux:Global="Bold" />
+		<Font File="Assets/Fonts/RobotoCondensed-Regular.ttf" ux:Global="Regular" />
+		<Font File="Assets/Fonts/RobotoCondensed-Light.ttf" ux:Global="Light" />
+
+		<FileImageSource ux:Key="contact1" File="Assets/Contacts/Contact1.png" />
+		<FileImageSource ux:Key="contact2" File="Assets/Contacts/Contact2.png" />
+ 		<FileImageSource ux:Key="contact3" File="Assets/Contacts/Contact3.png" />
+		<FileImageSource ux:Key="contact4" File="Assets/Contacts/Contact4.png" />
+
+		<StackPanel Dock="Top" Background="#79f">
+			<StatusBarBackground />
+			<Fuse.iOS.StatusBarConfig Style="Light" />
+			<Panel>
+				<Image File="Assets/Icons/menu.png" Alignment="CenterLeft" Margin="10" Height="15" Offset="0,2" />
+				<Text Value="Inbox" TextAlignment="Center" TextColor="#fff" Font="Bold" FontSize="24" Margin="0,10,0,5" />
+			</Panel>
+		</StackPanel>
+		<BottomBarBackground Dock="Bottom" />
+		<ScrollView>
+			<StackPanel>
+				<Each Items="{messages}">
+					<Panel>
+						<PageControl Active="contents">
+							<Page>
+								<ActivatingAnimation>
+									<Set postponeText.Opacity="0" />
+									<Set doneText.Opacity="1" />
+									<Set postponeIcon.Opacity="0" />
+									<Set checkmarkIcon.Opacity="1" />
+									<Change background.Color="#050" Easing="ExponentialOut" />
+									<Scale Target="checkmarkIcon" Factor="2.8" Easing="BackOut" />
+								</ActivatingAnimation>
+								<WhileActive>
+									<Callback Handler="{removeItem}" />
+								</WhileActive>
+							</Page>
+							<Page Background="#fff" ux:Name="contents">
+								<DockPanel Margin="7,1,7,0">
+									<Circle Height="50" Width="50" Dock="Left" Margin="7,7,0,7" Alignment="TopLeft">
+										<ImageFill Source="{DataToResource icon}" />
+									</Circle>
+
+									<StackPanel Margin="7,3,7,7">
+										<Text Font="Regular" Value="{subject}" FontSize="16" />
+										<Text Font="Regular" Value="{sender}" FontSize="16" TextColor="#999" />
+										<Text TextWrapping="Wrap" Font="Light" Value="{summary}" FontSize="14" TextColor="#000" />
+									</StackPanel>
+								</DockPanel>
+							</Page>
+							<Page>
+								<ActivatingAnimation>
+									<Set postponeText.Opacity="1" />
+									<Set doneText.Opacity="0" />
+									<Set checkmarkIcon.Opacity="0" />
+									<Set postponeIcon.Opacity="1" />
+									<Change background.Color="#bb0" Easing="ExponentialOut" />
+									<Scale Target="postponeIcon" Factor="2.8" Easing="BackOut" />
+								</ActivatingAnimation>
+								<WhileActive>
+									<Callback Handler="{postponeItem}" />
+								</WhileActive>
+							</Page>
+						</PageControl>
+
+						<Text ux:Class="Operation" Font="Regular" TextAlignment="Center" Alignment="Center"
+							TextColor="#fff" FontSize="22" />
+						<Operation ux:Name="doneText" >Done</Operation>
+						<Operation ux:Name="postponeText">Postponed</Operation>
+						<Image ux:Class="Icon" Width="20" Height="20" Margin="30" />
+						<Icon ux:Name="checkmarkIcon" Alignment="CenterLeft"
+							File="Assets/Icons/Checkmark.png" />
+						<Icon ux:Name="postponeIcon" Alignment="CenterRight"
+							File="Assets/Icons/Postpone.png" />
+						<Rectangle>
+							<SolidColor ux:Name="background" Color="#fff" />
+						</Rectangle>
+						<RemovingAnimation>
+							<Move RelativeTo="Size" Y="-1" Duration="0.4" Easing="CircularInOut" />
+						</RemovingAnimation>
+
+						<LayoutAnimation>
+							<Move RelativeTo="LayoutChange" Y="1" Duration="0.8" Easing="CircularInOut" />
+						</LayoutAnimation>
+					</Panel>
+				</Each>
+			</StackPanel>
+		</ScrollView>
+	</DockPanel>
+</App>

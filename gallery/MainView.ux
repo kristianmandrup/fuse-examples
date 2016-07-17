@@ -1,0 +1,78 @@
+<App Background="#ddf">
+	<JavaScript File="MainView.js" />
+	<Panel>
+		<FileImageSource File="Assets/Pictures/Unsplash1.jpg" ux:Key="Unsplash1" />
+		<FileImageSource File="Assets/Pictures/Unsplash2.jpg" ux:Key="Unsplash2" />
+		<FileImageSource File="Assets/Pictures/Unsplash3.jpg" ux:Key="Unsplash3" />
+		<FileImageSource File="Assets/Pictures/Unsplash4.jpg" ux:Key="Unsplash4" />
+		<FileImageSource File="Assets/Pictures/Unsplash5.jpg" ux:Key="Unsplash5" />
+		<FileImageSource File="Assets/Pictures/Unsplash6.jpg" ux:Key="Unsplash6" />
+		<FileImageSource File="Assets/Pictures/Unsplash7.jpg" ux:Key="Unsplash7" />
+		<FileImageSource File="Assets/Pictures/Unsplash8.jpg" ux:Key="Unsplash8" />
+		<FileImageSource File="Assets/Pictures/Unsplash9.jpg" ux:Key="Unsplash9" />
+		<FileImageSource File="Assets/Pictures/Unsplash10.jpg" ux:Key="Unsplash10" />
+		<FileImageSource File="Assets/Pictures/Unsplash11.jpg" ux:Key="Unsplash11" />
+		<FileImageSource File="Assets/Pictures/Unsplash12.jpg" ux:Key="Unsplash12" />
+		<FileImageSource File="Assets/Pictures/Unsplash13.jpg" ux:Key="Unsplash13" />
+		<FileImageSource File="Assets/Pictures/Unsplash14.jpg" ux:Key="Unsplash14" />
+		<FileImageSource File="Assets/Pictures/Unsplash15.jpg" ux:Key="Unsplash15" />
+		<FileImageSource File="Assets/Pictures/Unsplash16.jpg" ux:Key="Unsplash16" />
+		<FileImageSource File="Assets/Pictures/Unsplash17.jpg" ux:Key="Unsplash17" />
+		<FileImageSource File="Assets/Pictures/Unsplash18.jpg" ux:Key="Unsplash18" />
+		<FileImageSource File="Assets/Pictures/Unsplash19.jpg" ux:Key="Unsplash19" />
+		<FileImageSource File="Assets/Pictures/Unsplash20.jpg" ux:Key="Unsplash20" />
+		<FileImageSource File="Assets/Pictures/Unsplash21.jpg" ux:Key="Unsplash21" />
+
+		<DockPanel>
+			<StackPanel Dock="Top" Background="#3F51B5">
+				<StatusBarBackground />
+				<Fuse.iOS.StatusBarConfig Style="Light"/>
+				<Panel Height="60">
+					<Text Value="{header}" Alignment="Center" TextColor="#fff"/>
+					<Panel Clicked="{deleteSelected}"  Alignment="CenterRight">
+						<Image File="Assets/Icons/delete.png" Height="30" Margin="0,0,5,0" />
+					</Panel>
+				</Panel>
+			</StackPanel>
+			<BottomFrameBackground Dock="Bottom" />
+			<Panel DockPanel.Dock="Fill">
+				<ScrollView>
+					<Panel Alignment="Top">
+						<ColumnLayout ColumnCount="3" />
+						<Each Items="{pictures}">
+							<Panel Margin="3" Background="#eee" ux:Name="entry">
+								<Scaling ux:Name="entryScaling" Factor="1" />
+								<LayoutAnimation>
+									<Move RelativeTo="LayoutChange" X="1" Y="1" Duration="0.3" Easing="CircularInOut" />
+								</LayoutAnimation>
+								<DropShadow Angle="90" />
+								<Panel Background="#333" Margin="3">
+									<Image ux:Name="checkmark" File="Assets/Icons/Checkmark.png"
+											Alignment="TopRight" Margin="5" Width="20" Height="20" Color="#4f6"
+											Opacity="0" />
+									<Circle ux:Name="checkmarkBackground" Width="20" Height="20" Margin="5" Fill="#fff" Alignment="TopRight" Opacity="0" />
+									<Tapped>
+										<Callback Handler="{toggleSelect}" />
+									</Tapped>
+									<Image ux:Name="picture" StretchMode="UniformToFill" Source="{DataToResource resource}" />
+									<WhileTrue Value="{isSelected}">
+										<Change picture.Opacity="0.6" />
+										<Change checkmark.Opacity="0.7" />
+										<Change checkmarkBackground.Opacity="1" />
+									</WhileTrue>
+									<WhileTrue Value="{indicateModeChange}">
+										<Change entryScaling.Factor="0.9" Duration="0.2" Easing="CircularInOut" />
+										<Callback Handler="{nullModeChange}" Delay="0.4" />
+									</WhileTrue>
+									<LongPressed>
+										<Callback Handler="{goToSelectionMode}" />
+									</LongPressed>
+								</Panel>
+							</Panel>
+						</Each>
+					</Panel>
+				</ScrollView>
+			</Panel>
+		</DockPanel>
+	</Panel>
+</App>

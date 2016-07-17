@@ -1,0 +1,14 @@
+<Circle ux:Class="TableDot" ux:Name="circ" Width="50" Height="50" Fill="#fff" Opacity="0">
+	<Scaling ux:Name="scl" Factor="0.1" />
+	<Text Value="{number}" Alignment="Center" FontSize="20" />
+	<WhileTrue ux:Name="showDot">
+		<Change scl.Factor="1" Duration="0.5" Delay="{delay}" Easing="CubicInOut" />
+		<Change circ.Opacity="1" Duration="0.5" />
+	</WhileTrue>
+	<OnUserEvent EventName="ShowTables">
+		<Set showDot.Value="true"/>
+	</OnUserEvent>
+	<OnUserEvent EventName="HideTables">
+		<Set showDot.Value="false"/>
+	</OnUserEvent>
+</Circle>
