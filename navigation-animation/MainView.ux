@@ -1,0 +1,62 @@
+<App Background="#eeeeeeff">
+	<DockPanel>
+		<FileImageSource File="Assets/profile_1.png" ux:Key="profile1" />
+		<FileImageSource File="Assets/profile_2.png" ux:Key="profile2" />
+		<FileImageSource File="Assets/profile_3.png" ux:Key="profile3" />
+		<FileImageSource File="Assets/profile_4.png" ux:Key="profile4" />
+		<FileImageSource File="Assets/profile_5.png" ux:Key="profile5" />
+		<FileImageSource File="Assets/profile_6.png" ux:Key="profile6" />
+		<FileImageSource File="Assets/profile_7.png" ux:Key="profile7" />
+
+		<JavaScript>
+			var Observable = require("FuseJS/Observable");
+
+			var profiles = Observable(
+				{ resource : "profile1" },
+				{ resource : "profile2" },
+				{ resource : "profile3" },
+				{ resource : "profile6" },
+				{ resource : "profile4" },
+				{ resource : "profile5" },
+				{ resource : "profile2" },
+				{ resource : "profile5" },
+				{ resource : "profile4" },
+				{ resource : "profile1" },
+				{ resource : "profile7" },
+				{ resource : "profile3" },
+				{ resource : "profile2" },
+				{ resource : "profile5" },
+				{ resource : "profile4" },
+				{ resource : "profile1" },
+				{ resource : "profile7" },
+				{ resource : "profile3" }
+			);
+
+  			module.exports = {
+  				profiles : profiles
+  			}
+		</JavaScript>
+
+
+		<StatusBarBackground DockPanel.Dock="Top" />
+
+		<Panel Margin="0,100">
+			<LinearNavigation>
+				<NavigationMotion GotoDuration="0.4" GotoEasing="CircularOut" />
+			</LinearNavigation>
+			<SwipeNavigate SwipeDirection="Left" />
+			<Each Items="{profiles}">
+				<Card Name="{resource}" CachingMode="Never">
+					<Image Source="{DataToResource resource}"/>
+					<Clicked>
+						<NavigateTo Target="{resource}"/>
+					</Clicked>
+				</Card>
+			</Each>
+
+		</Panel>
+
+		<BottomBarBackground DockPanel.Dock="Bottom" />
+	</DockPanel>
+</App>
+

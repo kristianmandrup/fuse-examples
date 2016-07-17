@@ -1,0 +1,10 @@
+{
+  "Packages": [
+    "Fuse",
+    "FuseJS"
+  ],
+  "Includes": [
+    "Card.ux:UXFile",
+    "MainView.ux:UXFile"
+  ]
+}
