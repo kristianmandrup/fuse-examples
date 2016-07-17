@@ -8,6 +8,10 @@ Feel free to add your own example(s) to the collection.
 Please help remove deprecation warnings for Fuse 0.20 and beyond.
 Make a PR ;)
 
+To run an example:
+
+`fuse preview`
+
 - [Advanced Transition](https://www.fusetools.com/examples/advanced-transition)
 - [Angled Navigation](https://www.fusetools.com/examples/angled-navigation)
 - [Animated menu icon (burger menu)](https://www.fusetools.com/examples/animated-menu-icon)
